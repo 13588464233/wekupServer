@@ -13,7 +13,7 @@ COPY  . /app
 
 
 # 安装Python依赖
-RUN pip install -r requirement.txt -i https://mirrors.aliyun.com/pypi/simple
+RUN pip install -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple
 
 # 启动命令
 CMD ["python", "peopleCheck.py"]
