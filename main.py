@@ -5,7 +5,7 @@ import wave
 import numpy as np
 from vosk import Model, KaldiRecognizer
 
-model = Model(r".\vosk-model-small-cn-0.22\vosk-model-small-cn-0.22")
+model = Model(r"./vosk-model-small-cn-0.22/vosk-model-small-cn-0.22")
 
 # 创建识别器
 
