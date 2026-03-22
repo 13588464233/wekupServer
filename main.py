@@ -15,7 +15,7 @@ async def on_connect(websocket):
     rec = KaldiRecognizer(model, 16000)
 
     try:
-        await websocket.send("Hello from server!")
+         
 
         async for message in websocket:
             #print(message)
@@ -72,9 +72,33 @@ def save_float32_chunk_to_wav(raw_bytes, filename, sample_rate, num_channels):
     print(f"Saved {filename}, samples={audio_i16.size}")
 
 async def main():
-    server = await websockets.serve(on_connect, "localhost", 10096)
-    print("WebSocket server running on ws://localhost:10096")
+    # WebSocket服务器配置
+    host = "0.0.0.0"
+    port = 10096
+    backlog = 50  # 允许的待处理连接数
+    
+    # 启动WebSocket服务器
+    server = await websockets.serve(
+        on_connect, 
+        host, 
+        port, 
+        backlog=backlog,
+        max_size=None,  # 允许任意大小的消息
+        ping_interval=20,  # 心跳检测间隔
+        ping_timeout=10    # 心跳超时时间
+    )
+    
+    print(f"WebSocket服务器已启动，监听地址: ws://{host}:{port}")
+    print(f"服务器配置: 最大并发连接数={backlog}")
+    print("等待客户端连接...")
+    
+    # 保持服务器运行
     await server.wait_closed()
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    try:
+        asyncio.run(main())
+    except KeyboardInterrupt:
+        print("\n服务器已被用户中断")
+    except Exception as e:
+        print(f"服务器启动失败: {e}")
