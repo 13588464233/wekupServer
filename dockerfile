@@ -16,4 +16,4 @@ COPY  . /app
 RUN pip install -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple
 
 # 启动命令
-CMD ["python", "peopleCheck.py"]
+CMD ["python", "main.py"]
