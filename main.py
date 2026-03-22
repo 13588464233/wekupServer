@@ -5,14 +5,14 @@ import wave
 import numpy as np
 from vosk import Model, KaldiRecognizer
 
-model = Model(r"./vosk-model-small-cn-0.22/vosk-model-small-cn-0.22")
+model = Model(r".\vosk-model-small-cn-0.22\vosk-model-small-cn-0.22")
 
 # 创建识别器
-rec = KaldiRecognizer(model, 16000)
+
 
 async def on_connect(websocket):
     #print(f"New connection: {websocket.remote_address}")
- 
+    rec = KaldiRecognizer(model, 16000)
 
     try:
         await websocket.send("Hello from server!")
@@ -41,9 +41,8 @@ async def on_connect(websocket):
                 
                 
 
-                else:
-                    partial = json.loads(rec.PartialResult())
-                    #print("实时:", partial["partial"])
+  
+ 
 
 
            # await websocket.send("Message received")
@@ -73,7 +72,7 @@ def save_float32_chunk_to_wav(raw_bytes, filename, sample_rate, num_channels):
     print(f"Saved {filename}, samples={audio_i16.size}")
 
 async def main():
-    server = await websockets.serve(on_connect, "0.0.0.0", 10096)
+    server = await websockets.serve(on_connect, "localhost", 10096)
     print("WebSocket server running on ws://localhost:10096")
     await server.wait_closed()
 
