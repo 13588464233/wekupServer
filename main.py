@@ -73,7 +73,7 @@ def save_float32_chunk_to_wav(raw_bytes, filename, sample_rate, num_channels):
     print(f"Saved {filename}, samples={audio_i16.size}")
 
 async def main():
-    server = await websockets.serve(on_connect, "localhost", 10096)
+    server = await websockets.serve(on_connect, "0.0.0.0", 10096)
     print("WebSocket server running on ws://localhost:10096")
     await server.wait_closed()
 
