@@ -10,7 +10,7 @@ WORKDIR /app
 COPY  . /app
 
 # 升级pip
-
+EXPOSE 10096
 
 # 安装Python依赖
 RUN pip install -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple
